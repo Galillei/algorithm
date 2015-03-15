@@ -103,5 +103,38 @@ function inOrder($n, $tree2){
         }
     }
 }
+
+function inLineSearch($n, $tree2)
+{
+    $temp = array();
+    $temp[] = $n;
+    $print = array();
+    label:
+    $newTemp = array();
+    foreach($temp as $element){
+        $c = LEFTMOST_CHILD($element, $tree2);
+
+        $print[]= $c;
+        if(RIGHT_SIBLING($c,$tree2)){
+            $r = RIGHT_SIBLING($c, $tree2);
+            $newTemp[] = $c;
+        while($r!= null)
+        {
+            $newTemp[] = $r;
+            $print[] = $r;
+            $r = RIGHT_SIBLING($r, $tree2);
+        }
+        }
+    }
+
+    if(count($newTemp)){
+        $temp=$newTemp;
+        goto label;
+    }
+    return $print;
+
+}
+preorder(1,$tree2);
+inOrder(1,$tree2);
 postOrder(1,$tree2);
-var_dump($b);
+var_dump(inLineSearch(1,$tree2));
