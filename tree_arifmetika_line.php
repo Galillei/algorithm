@@ -4,9 +4,11 @@ $tree2 = array(
     2=> array(4,5),
     3=> array(6,7),
     5=> array(),
-    6=> array(),
+    6=> array(8,9),
     7=> array(),
-    4=> array()
+    4=> array(),
+    8=>array(),
+    9=>array(),
 );
 $metka = array(
     1=>'*',
@@ -14,8 +16,10 @@ $metka = array(
     3=>'+',
     4=>4,
     5=>5,
-    6=>6,
-    7=>7
+    6=>'+',
+    7=>7,
+    8=>8,
+    9=>9
 );
 
 $a = '';
@@ -25,8 +29,9 @@ function preorder($n,$tree2){
     $c= LEFTMOST_CHILD($n,$tree2);
     if($c!= null){
         $r = RIGHT_SIBLING($c, $tree2);
+        $a .= preorder($c,$tree2).$metka[$n];
         while($r !=null){
-            $a.=preorder($c,$tree2).$n.preorder($r,$tree2);
+            $a.=preorder($r,$tree2);
             $r = RIGHT_SIBLING($r,$tree2);
 
         }
@@ -82,3 +87,4 @@ function parent($index, $tree2)
 }
 preorder(1,$tree2);
 var_dump($a);
+var_dump(eval('echo('.$a.');'));
